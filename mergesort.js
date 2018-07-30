@@ -19,5 +19,55 @@ function split(array){
 }
 
 function mergeSort(array, comp){
+  if(array.length < 2){
+    return array;
+  }
+let splitted = split(array);
+let left = splitted[0];
+let right = splitted[1];
 
+return merge(mergeSort(left,comp),mergeSort(right, comp), comp);
 }
+
+function merge(array1, array2, comp){
+  //Assuming that both Arrays are already sorted
+  let tempArray = [];
+  let tempArrayCounter = 0;
+  let pointerLeft = 0;
+  let pointerRight = 0;
+
+
+  while(pointerLeft < array1.length && pointerRight < array2.length){
+
+    if(comp && (typeof comp === 'function')){
+      if(comp(array1[pointerLeft],array2[pointerRight]) <= 0){
+        tempArray[tempArrayCounter] = array1[pointerLeft];
+        pointerLeft++;
+        tempArrayCounter++;
+      } else {
+        tempArray[tempArrayCounter] = array2[pointerRight];
+        pointerRight++;
+        tempArrayCounter++;
+      }
+    } else {
+      if (array1[pointerLeft] <= array2[pointerRight]){
+        tempArray[tempArrayCounter] = array1[pointerLeft];
+        pointerLeft++;
+        tempArrayCounter++;
+      } else {
+        tempArray[tempArrayCounter] = array2[pointerRight];
+        pointerRight++;
+        tempArrayCounter++;
+      }
+    }
+}
+  if(pointerLeft < array1.length){
+    tempArray = tempArray.concat(array1.slice(pointerLeft, array1.length));
+  }
+  if(pointerRight < array2.length){
+    tempArray = tempArray.concat(array2.slice(pointerRight,array2.length));
+  }
+  return tempArray;
+}
+
+
