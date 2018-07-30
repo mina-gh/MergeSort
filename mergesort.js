@@ -18,15 +18,15 @@ function split(array){
   return result;
 }
 
-function mergeSort(array, comp){
-  if(array.length < 2){
+function mergeSort (array, comp){
+  if (array.length < 2){
     return array;
   }
-let splitted = split(array);
-let left = splitted[0];
-let right = splitted[1];
+  let splitted = split(array);
+  let left = splitted[0];
+  let right = splitted[1];
 
-return merge(mergeSort(left,comp),mergeSort(right, comp), comp);
+  return merge(mergeSort(left,comp),mergeSort(right, comp), comp);
 }
 
 function merge(array1, array2, comp){
@@ -37,30 +37,18 @@ function merge(array1, array2, comp){
   let pointerRight = 0;
 
 
-  while(pointerLeft < array1.length && pointerRight < array2.length){
-
-    if(comp && (typeof comp === 'function')){
-      if(comp(array1[pointerLeft],array2[pointerRight]) <= 0){
-        tempArray[tempArrayCounter] = array1[pointerLeft];
-        pointerLeft++;
-        tempArrayCounter++;
-      } else {
-        tempArray[tempArrayCounter] = array2[pointerRight];
-        pointerRight++;
-        tempArrayCounter++;
-      }
+  while (pointerLeft < array1.length && pointerRight < array2.length){
+    if (smallerEqual(array1[pointerLeft], array2[pointerRight], comp)){
+      tempArray[tempArrayCounter] = array1[pointerLeft];
+      pointerLeft++;
+      tempArrayCounter++;
     } else {
-      if (array1[pointerLeft] <= array2[pointerRight]){
-        tempArray[tempArrayCounter] = array1[pointerLeft];
-        pointerLeft++;
-        tempArrayCounter++;
-      } else {
-        tempArray[tempArrayCounter] = array2[pointerRight];
-        pointerRight++;
-        tempArrayCounter++;
-      }
+      tempArray[tempArrayCounter] = array2[pointerRight];
+      pointerRight++;
+      tempArrayCounter++;
     }
-}
+  }
+
   if(pointerLeft < array1.length){
     tempArray = tempArray.concat(array1.slice(pointerLeft, array1.length));
   }
@@ -68,6 +56,14 @@ function merge(array1, array2, comp){
     tempArray = tempArray.concat(array2.slice(pointerRight,array2.length));
   }
   return tempArray;
+}
+
+function smallerEqual(item1, item2, comp){
+  if(comp && typeof comp === 'function'){
+    return comp(item1, item2) <= 0;
+  }else{
+    return item1 <= item2;
+  }
 }
 
 
