@@ -9,7 +9,6 @@ describe('Split Array function', function() {
 
   it('splits an 3-elem array into two sub arrays, if given an array size > 1', function() {
     let array = randomArray(3);
-    console.log("original array: " + array);
     let splitted = split(array);
 
     expect(splitted.length).toEqual(2);
