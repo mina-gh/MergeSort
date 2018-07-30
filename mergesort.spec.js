@@ -1,4 +1,36 @@
-describe('Merge Sort', function() {
+describe('Split Array function', function() {
+  it('returns an empty array if the input array is empty', function() {
+    expect(split([])).toEqual([]);
+  });
+
+  it('returns the same array, if it has only one element', function() {
+    expect(split([1])).toEqual([1]);
+  });
+
+  it('splits an 3-elem array into two sub arrays, if given an array size > 1', function() {
+    let array = randomArray(3);
+    console.log("original array: " + array);
+    let splitted = split(array);
+
+    expect(splitted.length).toEqual(2);
+    expect(splitted[0].length).toEqual(1);
+    expect(splitted[1].length).toEqual(2);
+  });
+
+  it('splits an 3-elem array into two sub arrays, if given an array size > 1', function() {
+    let array = randomArray(6);
+    let splitted = split(array);
+
+    expect(splitted.length).toEqual(2);
+    // since the given array length is 6 i.e., an even number, make sure the splitted subarrays contains the same number of elements.
+    expect(splitted[0].length).toEqual(3);
+    expect(splitted[1].length).toEqual(3);
+  });
+
+});
+
+
+/*describe('Merge Sort', function() {
   it('handles an empty array', function() {
       expect(mergeSort([])).toEqual([]);
   });
@@ -81,13 +113,15 @@ describe('Merge Sort', function() {
     expect(Array.prototype.sort.calls.count()).toEqual(0);
   });
 
-  function randomArray(n){
-    // returns a random array of n elements.
-    let array = [];
-    while (n > 0){
-      array.push(Math.floor(Math.random() * 100));
-      n--;
-    }
-    return array;
+
+});*/
+
+function randomArray(n){
+  // returns a random array of n elements.
+  let array = [];
+  while (n > 0){
+    array.push(Math.floor(Math.random() * 100));
+    n--;
   }
-});
+  return array;
+}
